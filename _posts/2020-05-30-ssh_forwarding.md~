@@ -1,0 +1,62 @@
+---
+layout: pst
+author: Takushi Usami
+---
+rubyのgem:net-sshでのport forwardingを試す。
+sshコマンドでは、-Jオプションで実現できる機能。
+
+``` ruby
+#!/usr/bin/env ruby
+#coding: UTF-8
+
+require 'net/ssh'
+require 'socket'
+require 'timeout'
+
+module Env
+  module Target
+    HOST="192.168.33.30"
+    USER="vagrant"
+    PWD="vagrant"
+    PORT=22
+  end
+
+  module Proxy
+    HOST="192.168.33.20"
+    USER="vagrant"
+    PWD="vagrant"
+    PORT=2222
+  end
+end
+
+def start_proxy
+  stop_proxy_flag = false
+  Signal.trap('INT') {stop_proxy_flag = true}
+  
+  Net::SSH.start(Env::Proxy::HOST, Env::Proxy::USER, password: Env::Proxy::PWD) do |ssh|
+    ssh.forward.local(Env::Proxy::PORT, Env::Target::HOST, Env::Target::PORT)
+    ssh.loop(0.1) {not stop_proxy_flag}
+  end
+end
+
+def exec
+  Net::SSH.start("localhost", Env::Target::USER, password: Env::Target::PWD, port: Env::Proxy::PORT) do |ssh|
+    puts ssh.exec!("hostname")
+  end
+end
+
+child = Process.fork {start_proxy}
+sleep(5)
+if not child
+  $stderr.puts "Can't start proxy"
+  exit(false)
+end
+
+exec
+Process.kill("INT", child)
+Process.wait
+
+
+
+
+```
