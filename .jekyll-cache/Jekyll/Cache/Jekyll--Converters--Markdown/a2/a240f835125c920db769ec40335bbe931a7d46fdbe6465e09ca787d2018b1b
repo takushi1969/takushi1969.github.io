@@ -1,8 +1,0 @@
-I"d<p>rubyの<a href="https://github.com/net-ssh/net-ssh">Net::SSH</a>でのポート・フォワーディングを試す。
-sshコマンドでは、-Jオプションで実現できる機能。
-切っ掛けは、仕事の関係でプライベート・ネットワークにあるLinuxに対して、minitestを使ったテストセットを作成したかったから。
-<a href="https://qiita.com/metheglin/items/1e8459c46395c57391d1">こちらの記事</a>に<a href="https://github.com/net-ssh/net-ssh-gateway">Net::SSH::Gateway</a>を実例がある。
-ここでは、<a href="https://github.com/net-ssh/net-ssh-gateway">Net::SSH::Gateway</a>を使わずに、純粋に<a href="https://github.com/net-ssh/net-ssh">Net::SSH</a>のみでトライしてみた。
-結果、パスワード認証でのポート・フォワーディングをすることができた。</p>
-
-:ET
