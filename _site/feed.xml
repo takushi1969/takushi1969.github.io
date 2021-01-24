@@ -4,11 +4,40 @@
     <title>My Happy Days</title>
     <description>日々の徒然の事象を記載。	     
 </description>
-    <link>http://takushi1969.github.io/</link>
-    <atom:link href="http://takushi1969.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 15 Jan 2021 00:13:30 +0900</pubDate>
-    <lastBuildDate>Fri, 15 Jan 2021 00:13:30 +0900</lastBuildDate>
-    <generator>Jekyll v4.2.0</generator>
+    <link>http://192.168.33.10:4000/</link>
+    <atom:link href="http://192.168.33.10:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 24 Jan 2021 10:19:50 +0000</pubDate>
+    <lastBuildDate>Sun, 24 Jan 2021 10:19:50 +0000</lastBuildDate>
+    <generator>Jekyll v3.8.6</generator>
+    
+      <item>
+        <title>google-translate.elのtkkエラー</title>
+        <description>&lt;p&gt;emacsからgoogle-translateを使用すると、ミニバッファに&lt;strong&gt;Search failed: “,tkk:’“&lt;/strong&gt;となり、動作しない。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2021-01-24/google-translate-error.png&quot; alt=&quot;google-translate error&quot; style=&quot;width:480px;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;原因&quot;&gt;原因&lt;/h2&gt;
+
+&lt;p&gt;動作しない原因は、&lt;a href=&quot;https://github.com/Boudewijn26/gTTS-token/blob/master/docs/november-2020-translate-changes.md&quot;&gt;google translateのAPI&lt;/a&gt;の変更にあるらしい。&lt;/p&gt;
+
+&lt;h2 id=&quot;暫定対処&quot;&gt;暫定対処&lt;/h2&gt;
+
+&lt;p&gt;google-tanslateの内部関数:&lt;code class=&quot;highlighter-rouge&quot;&gt;google-translate--get-b-d1&lt;/code&gt;を上書いて、&lt;a href=&quot;https://qiita.com/minoruGH/items/75eb4fab53e93653f999&quot;&gt;公知の&lt;strong&gt;TKK&lt;/strong&gt;を返す方法&lt;/a&gt;がある。&lt;/p&gt;
+
+&lt;h2 id=&quot;正式対応に関する調査&quot;&gt;正式対応に関する調査&lt;/h2&gt;
+
+&lt;p&gt;未検証だが、&lt;a href=&quot;https://github.com/guyrotem/google-translate-server&quot;&gt;google-translate-server&lt;/a&gt;で公開されているソースを利用して、proxyサーバを起てる方法があるらしい。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Jan 2021 00:00:00 +0000</pubDate>
+        <link>http://192.168.33.10:4000/2021/01/24/tkk-error-on-google-translate.html</link>
+        <guid isPermaLink="true">http://192.168.33.10:4000/2021/01/24/tkk-error-on-google-translate.html</guid>
+        
+        <category>emacs</category>
+        
+        <category>google-translate</category>
+        
+        
+      </item>
     
       <item>
         <title>Ruby Net::Telnet#cmdでタイムアウトする時は</title>
@@ -26,7 +55,7 @@
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/bash -e&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sleep &lt;/span&gt;20
 
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Hello, World&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Hello, World'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h3 id=&quot;timeoutオプション未設定&quot;&gt;Timeoutオプション未設定&lt;/h3&gt;
 
@@ -35,7 +64,7 @@
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#coding UTF-8&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;net/telnet&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net/telnet'&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Telnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Host&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;vagrant&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vagrant&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -45,14 +74,14 @@
 
 &lt;h4 id=&quot;結果&quot;&gt;結果&lt;/h4&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu-focal:~# ./telnet.rb
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu-focal:~# ./telnet.rb
 ubuntu-focal login: vagrant
 Password:
 vagrant@ubuntu-focal:~$ /tmp/hello.sh
 Traceback (most recent call last):
-        2: from ./telnet.rb:8:in `&amp;lt;main&amp;gt;&apos;
-        1: from /usr/lib/ruby/vendor_ruby/net/telnet.rb:694:in `cmd&apos;
-/usr/lib/ruby/vendor_ruby/net/telnet.rb:557:in `waitfor&apos;: Net::ReadTimeout with
+        2: from ./telnet.rb:8:in `&amp;lt;main&amp;gt;'
+        1: from /usr/lib/ruby/vendor_ruby/net/telnet.rb:694:in `cmd'
+/usr/lib/ruby/vendor_ruby/net/telnet.rb:557:in `waitfor': Net::ReadTimeout with
 &quot;timed out while waiting for more data&quot; (Net::ReadTimeout)
 root@ubuntu-focal:~#
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -64,7 +93,7 @@ root@ubuntu-focal:~#
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#coding UTF-8&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;net/telnet&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net/telnet'&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Telnet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Host&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;localhost&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Timeout&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;vagrant&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;vagrant&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -73,7 +102,7 @@ root@ubuntu-focal:~#
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;h4 id=&quot;結果-1&quot;&gt;結果&lt;/h4&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu-focal:~# ./telnet.rb
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu-focal:~# ./telnet.rb
 ubuntu-focal login: vagrant
 Password:
 vagrant@ubuntu-focal:~$ /tmp/hello.sh
@@ -84,9 +113,9 @@ root@ubuntu-focal:~#
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 </description>
-        <pubDate>Thu, 14 Jan 2021 00:00:00 +0900</pubDate>
-        <link>http://takushi1969.github.io/2021/01/14/net-telnet-timeout.html</link>
-        <guid isPermaLink="true">http://takushi1969.github.io/2021/01/14/net-telnet-timeout.html</guid>
+        <pubDate>Thu, 14 Jan 2021 00:00:00 +0000</pubDate>
+        <link>http://192.168.33.10:4000/2021/01/14/net-telnet-timeout.html</link>
+        <guid isPermaLink="true">http://192.168.33.10:4000/2021/01/14/net-telnet-timeout.html</guid>
         
         <category>ruby</category>
         
@@ -106,9 +135,9 @@ root@ubuntu-focal:~#
 
 &lt;p&gt;これで、ターミナルでもemacsでOptionキーを使用できるようになった。&lt;/p&gt;
 </description>
-        <pubDate>Tue, 11 Aug 2020 00:00:00 +0900</pubDate>
-        <link>http://takushi1969.github.io/2020/08/11/disable_option.html</link>
-        <guid isPermaLink="true">http://takushi1969.github.io/2020/08/11/disable_option.html</guid>
+        <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+        <link>http://192.168.33.10:4000/2020/08/11/disable_option.html</link>
+        <guid isPermaLink="true">http://192.168.33.10:4000/2020/08/11/disable_option.html</guid>
         
         
       </item>
@@ -120,9 +149,9 @@ root@ubuntu-focal:~#
 &lt;p&gt;&lt;img src=&quot;/assets/open_takasu.jpeg&quot; alt=&quot;Open takasu beach&quot; /&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 02 Jun 2020 00:00:00 +0900</pubDate>
-        <link>http://takushi1969.github.io/windsurfing/2020/06/02/open-takasu_beach.html</link>
-        <guid isPermaLink="true">http://takushi1969.github.io/windsurfing/2020/06/02/open-takasu_beach.html</guid>
+        <pubDate>Tue, 02 Jun 2020 00:00:00 +0000</pubDate>
+        <link>http://192.168.33.10:4000/windsurfing/2020/06/02/open-takasu_beach.html</link>
+        <guid isPermaLink="true">http://192.168.33.10:4000/windsurfing/2020/06/02/open-takasu_beach.html</guid>
         
         
         <category>windsurfing</category>
@@ -145,7 +174,7 @@ sshコマンドでは、-Jオプションで実現できる機能。&lt;/p&gt;
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#coding: UTF-8&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;net/ssh&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'net/ssh'&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Env&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Target&lt;/span&gt;
@@ -165,7 +194,7 @@ sshコマンドでは、-Jオプションで実現できる機能。&lt;/p&gt;
 
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start_proxy&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;stop_proxy_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
-  &lt;span class=&quot;no&quot;&gt;Signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;trap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;INT&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop_proxy_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Signal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;trap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'INT'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop_proxy_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   
   &lt;span class=&quot;no&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SSH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;password: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PWD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;ssh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -182,7 +211,7 @@ sshコマンドでは、-Jオプションで実現できる機能。&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;child&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fork&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start_proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;child&lt;/span&gt;
-  &lt;span class=&quot;vg&quot;&gt;$stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Can&apos;t start proxy&quot;&lt;/span&gt;
+  &lt;span class=&quot;vg&quot;&gt;$stderr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Can't start proxy&quot;&lt;/span&gt;
   &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 
@@ -193,9 +222,9 @@ sshコマンドでは、-Jオプションで実現できる機能。&lt;/p&gt;
 
 &lt;p&gt;次回は、鍵認証によるsshのポート・フォワードを試してみようと思案中。&lt;/p&gt;
 </description>
-        <pubDate>Sat, 30 May 2020 00:00:00 +0900</pubDate>
-        <link>http://takushi1969.github.io/ruby/ssh/2020/05/30/ssh_forwarding.html</link>
-        <guid isPermaLink="true">http://takushi1969.github.io/ruby/ssh/2020/05/30/ssh_forwarding.html</guid>
+        <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+        <link>http://192.168.33.10:4000/ruby/ssh/2020/05/30/ssh_forwarding.html</link>
+        <guid isPermaLink="true">http://192.168.33.10:4000/ruby/ssh/2020/05/30/ssh_forwarding.html</guid>
         
         
         <category>ruby</category>
