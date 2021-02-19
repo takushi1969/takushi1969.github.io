@@ -10,8 +10,8 @@
   <meta name="description" content="サーバの管理の自動化の一環で、RubyのNet::Telnetパッケージを使用することがある。そして、サーバのコマンド実行には、ログイン後のNet::Telnet#cmdメソッドを使用する。">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://192.168.33.10:4000/2021/01/14/net-telnet-timeout.html">
-  <link rel="alternate" type="application/rss+xml" title="My Happy Days" href="http://192.168.33.10:4000/feed.xml">
+  <link rel="canonical" href="http://takushi1969.github.io/2021/01/14/net-telnet-timeout.html">
+  <link rel="alternate" type="application/rss+xml" title="My Happy Days" href="http://takushi1969.github.io/feed.xml">
 </head>
 
 
@@ -58,7 +58,7 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Ruby Net::Telnet#cmdでタイムアウトする時は</h1>
-    <p class="post-meta"><time datetime="2021-01-14T00:00:00+00:00" itemprop="datePublished">Jan 14, 2021</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">takushi1969</span></span></p>
+    <p class="post-meta"><time datetime="2021-01-14T00:00:00+09:00" itemprop="datePublished">Jan 14, 2021</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">takushi1969</span></span></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -95,7 +95,7 @@
 
 <h4 id="結果">結果</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ubuntu-focal:~# ./telnet.rb
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ubuntu-focal:~# ./telnet.rb
 ubuntu-focal login: vagrant
 Password:
 vagrant@ubuntu-focal:~$ /tmp/hello.sh
@@ -123,7 +123,7 @@ root@ubuntu-focal:~#
 </code></pre></div></div>
 <h4 id="結果-1">結果</h4>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ubuntu-focal:~# ./telnet.rb
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ubuntu-focal:~# ./telnet.rb
 ubuntu-focal login: vagrant
 Password:
 vagrant@ubuntu-focal:~$ /tmp/hello.sh

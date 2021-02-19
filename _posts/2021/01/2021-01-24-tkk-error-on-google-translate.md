@@ -6,7 +6,7 @@ tags:	emacs google-translate
 ---
 emacsからgoogle-translateを使用すると、ミニバッファに**Search failed: ",tkk:'"**となり、動作しない。
 
-<img src="/assets/2021-01-24/google-translate-error.png" alt="google-translate error" style="width:480px;">
+<img src="/assets/2021/01/24/google-translate-error.png" alt="google-translate error" style="width:480px;">
 
 ## 原因 ##
 
