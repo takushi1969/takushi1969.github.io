@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>can&#39;t invoke mintty of cygwin after making cygserver run at boot.</title>
+  <title>recovery from cygwin&#39;s failure after make cygserver run at boot.</title>
   <meta name="description" content="はじめに">
 
   <link rel="stylesheet" href="/css/main.css">
@@ -57,14 +57,14 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">can't invoke mintty of cygwin after making cygserver run at boot.</h1>
+    <h1 class="post-title" itemprop="name headline">recovery from cygwin's failure after make cygserver run at boot.</h1>
     <p class="post-meta"><time datetime="2021-02-20T00:00:00+09:00" itemprop="datePublished">Feb 20, 2021</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">takushi1969</span></span></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
     <h2 id="はじめに">はじめに</h2>
 
-<p><a href="https://cygwin.com/">Cygwin</a>はPosix機能の以外に
+<p><a href="https://cygwin.com/">Cygwin</a>はPosix機能以外に
 <a href="https://www.postgresql.org/">PostgreSQL</a>や
 <a href="https://httpd.apache.org/">Apache</a>などのLAMPを構成するサーバも提供し
 ている。</p>
@@ -76,8 +76,9 @@
 
 <h2 id="問題">問題</h2>
 
-<p><a href="https://cygwin.com/cygwin-ug-net/using-cygserver.html">Cygserver</a>は通
-常であれば、Windowsのブート時に自動起動するよう設定する。</p>
+<p>通常、
+<a href="https://cygwin.com/cygwin-ug-net/using-cygserver.html">Cygserver</a>を
+Windowsのブート時に自動起動するよう設定する。</p>
 
 <p><a href="https://cygwin.com/cygwin-ug-net/using-cygserver.html">Cygserver</a>は、
 セキュリティ・アービトレーション以外にも、<a href="https://cygwin.com/cygwin-ug-net/ntsec.html#ntsec-mapping-caching">Caching account
@@ -90,7 +91,7 @@ information</a>
 
 <p>Windowsがスタンドアローンの運用であれば、このアカウント・キャッシュが悪さをすることはない。</p>
 
-<p>しかし、会社などの組織で運用しているActive DirectoryなどのDomainに属しているWindowsで<a href="https://cygwin.com/cygwin-ug-net/using-cygserver.html">Cygserver</a>をブート起動した場合、Windowsのログインに使用するドメイン・ユーザのアカウント・キャシュされない。このため、Cygwin Terminalを起動に失敗する。</p>
+<p>しかし、組織のActive DirectoryなどのDomainに属しているWindowsで<a href="https://cygwin.com/cygwin-ug-net/using-cygserver.html">Cygserver</a>をブート起動した場合、Windowsのログインに使用するドメイン・ユーザのアカウントがCygserverの起動時にキャシュされない。このため、ログイン後、Cygwin Terminalを起動に失敗する。</p>
 
 <h2 id="対処">対処</h2>
 
@@ -99,6 +100,7 @@ information</a>
   <li>Cygserverの停止</li>
   <li>/etc/passwd、/etc/groupを作成</li>
   <li>/etc/nsswitch.confの編集</li>
+  <li>Cygserverの再開</li>
 </ol>
 
 <p>以降にそれぞれの詳細を記す。</p>
@@ -107,14 +109,28 @@ information</a>
 
 <ol>
   <li>管理者権限でpowershellを起動</li>
-  <li>stop-serviceコマンドレットの引数にCygserverを指定いて実行
-<img src="/assets/2021/02/20/stop-cygserver.gif" alt="stop cygserver" /></li>
+  <li>
+    <p>stop-serviceコマンドレットでCygserverを停止</p>
+
+    <blockquote>
+      <p>Stop-Service cygserver</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>set-serviceコマンドレットでCygserverの自動起動を停止</p>
+
+    <blockquote>
+      <p>Set-Service -StartupType Disabled cygserver</p>
+    </blockquote>
+  </li>
   <li>Windowsの再起動</li>
 </ol>
 
+<p><img src="/assets/2021/02/20/stop-cygserver.gif" alt="stop cygserver" /></p>
+
 <h3 id="2-etcpasswdetcgroupを作成">2. /etc/passwd、/etc/groupを作成</h3>
 
-<p>上記手順の結果、Cygwin Terminalが起動可能となった。</p>
+<p>上記手順の結果、Windowsの再起動後にCygwin Terminalが起動可能となる。</p>
 
 <p>Cygwin Terminalを起動して、以下のコマンドを実行して、passwdファイルと
 groupファイルを作成する。</p>
@@ -122,6 +138,8 @@ groupファイルを作成する。</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkpasswd -c -l &gt; /etc/passwd
 $ mkgroup -c -l &gt; /etc/group
 </code></pre></div></div>
+
+<p><img src="/assets/2021/02/20/mkpasswd.gif" alt="mkpasswd" /></p>
 
 <h3 id="3-etcnsswitchconfの編集">3. /etc/nsswitch.confの編集</h3>
 
@@ -145,15 +163,30 @@ group:    files # db
   </li>
 </ul>
 
-<p>上記の反映を終えたら、システムの再起動を行う。</p>
-
-<p>これは、<a href="https://cygwin.com/cygwin-ug-net/ntsec.html#ntsec-mapping-nsswitch">The /etc/nsswitch.conf file</a>にある以下の注記に対応して、/etc/nsswitch.confの変更が有効するためである。また、手順1で停止したCygserverを自動起動するためでもある。</p>
+<p>なお、nsswitch.confの変更を有効にするには、サービスも含めた全Cygwinアプリの再起動が必要となる。この仕様については、<a href="https://cygwin.com/cygwin-ug-net/ntsec.html#ntsec-mapping-nsswitch">The /etc/nsswitch.conf file</a>に以下のように記載がある。</p>
 
 <blockquote>
   <p>The /etc/nsswitch.conf file is read exactly once by the first process of a Cygwin process tree. If there was no /etc/nsswitch.conf file when this first process started, then no other process in the running Cygwin process tree will try to read the file.</p>
 
   <p>If you create or change /etc/nsswitch.conf, you have to restart all Cygwin processes that need to see the change. If the process you want to see the change is a child of another process, you need to restart all of that process’s parents, too.</p>
 </blockquote>
+
+<h3 id="4-cygserverの再開">4. Cygserverの再開</h3>
+
+<ol>
+  <li>管理者権限でpowershellを起動</li>
+  <li>
+    <p>set-serviceコマンドレットでCygserverの自動起動を停止</p>
+
+    <blockquote>
+      <p>Set-Service -StartupType Automatic cygserver</p>
+    </blockquote>
+  </li>
+  <li>Windowsの再起動
+nsswitch.confの変更を反映する意味も持つ</li>
+</ol>
+
+<p><img src="/assets/2021/02/20/start-cygserver.gif" alt="start cygserver" /></p>
 
   </div>
 
