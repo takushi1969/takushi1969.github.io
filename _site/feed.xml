@@ -6,9 +6,121 @@
 </description>
     <link>http://takushi1969.github.io/</link>
     <atom:link href="http://takushi1969.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Feb 2021 23:57:38 +0900</pubDate>
-    <lastBuildDate>Fri, 19 Feb 2021 23:57:38 +0900</lastBuildDate>
+    <pubDate>Sat, 20 Feb 2021 16:22:46 +0900</pubDate>
+    <lastBuildDate>Sat, 20 Feb 2021 16:22:46 +0900</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>can&apos;t invoke mintty of cygwin after making cygserver run at boot.</title>
+        <description>&lt;h2 id=&quot;はじめに&quot;&gt;はじめに&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cygwin.com/&quot;&gt;Cygwin&lt;/a&gt;はPosix機能の以外に
+&lt;a href=&quot;https://www.postgresql.org/&quot;&gt;PostgreSQL&lt;/a&gt;や
+&lt;a href=&quot;https://httpd.apache.org/&quot;&gt;Apache&lt;/a&gt;などのLAMPを構成するサーバも提供し
+ている。&lt;/p&gt;
+
+&lt;p&gt;これらのサーバをバックグラウンドで実行するには、サーバに代ってセ
+キュリティ・アービトレーションを実施する
+&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/using-cygserver.html&quot;&gt;Cygserver&lt;/a&gt;の起
+動が不可欠である。&lt;/p&gt;
+
+&lt;h2 id=&quot;問題&quot;&gt;問題&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/using-cygserver.html&quot;&gt;Cygserver&lt;/a&gt;は通
+常であれば、Windowsのブート時に自動起動するよう設定する。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/using-cygserver.html&quot;&gt;Cygserver&lt;/a&gt;は、
+セキュリティ・アービトレーション以外にも、&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/ntsec.html#ntsec-mapping-caching&quot;&gt;Caching account
+information&lt;/a&gt;
+の以下の記載にあるようにアカウントのキャッシュを行う。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If cygserver is running it will provide passwd and group entry caching for all processes in every Cygwin process tree started after cygserver. So, if you start a Cygwin Terminal and cygserver is running at the time, mintty, the shell, and all child processes will use cygserver caching.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Windowsがスタンドアローンの運用であれば、このアカウント・キャッシュが悪さをすることはない。&lt;/p&gt;
+
+&lt;p&gt;しかし、会社などの組織で運用しているActive DirectoryなどのDomainに属しているWindowsで&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/using-cygserver.html&quot;&gt;Cygserver&lt;/a&gt;をブート起動した場合、Windowsのログインに使用するドメイン・ユーザのアカウント・キャシュされない。このため、Cygwin Terminalを起動に失敗する。&lt;/p&gt;
+
+&lt;h2 id=&quot;対処&quot;&gt;対処&lt;/h2&gt;
+
+&lt;p&gt;以下の手順を踏むことで、この問題に対処することができる。&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Cygserverの停止&lt;/li&gt;
+  &lt;li&gt;/etc/passwd、/etc/groupを作成&lt;/li&gt;
+  &lt;li&gt;/etc/nsswitch.confの編集&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;以降にそれぞれの詳細を記す。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-cygserverの停止&quot;&gt;1. Cygserverの停止&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;管理者権限でpowershellを起動&lt;/li&gt;
+  &lt;li&gt;stop-serviceコマンドレットの引数にCygserverを指定いて実行
+&lt;img src=&quot;/assets/2021/02/20/stop-cygserver.gif&quot; alt=&quot;stop cygserver&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;Windowsの再起動&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;2-etcpasswdetcgroupを作成&quot;&gt;2. /etc/passwd、/etc/groupを作成&lt;/h3&gt;
+
+&lt;p&gt;上記手順の結果、Cygwin Terminalが起動可能となった。&lt;/p&gt;
+
+&lt;p&gt;Cygwin Terminalを起動して、以下のコマンドを実行して、passwdファイルと
+groupファイルを作成する。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mkpasswd -c -l &amp;gt; /etc/passwd
+$ mkgroup -c -l &amp;gt; /etc/group
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-etcnsswitchconfの編集&quot;&gt;3. /etc/nsswitch.confの編集&lt;/h3&gt;
+
+&lt;p&gt;Nave Service Switchがpasswdとgroupのアカウント情報を検索する優先順位に、
+上記で作成したファイルを第一優先となるように設定する。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;変更前&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# passwd:   files db
+# group:    files db
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;変更後&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;passwd:   files # db
+group:    files # db
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上記の反映を終えたら、システムの再起動を行う。&lt;/p&gt;
+
+&lt;p&gt;これは、&lt;a href=&quot;https://cygwin.com/cygwin-ug-net/ntsec.html#ntsec-mapping-nsswitch&quot;&gt;The /etc/nsswitch.conf file&lt;/a&gt;にある以下の注記に対応して、/etc/nsswitch.confの変更が有効するためである。また、手順1で停止したCygserverを自動起動するためでもある。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The /etc/nsswitch.conf file is read exactly once by the first process of a Cygwin process tree. If there was no /etc/nsswitch.conf file when this first process started, then no other process in the running Cygwin process tree will try to read the file.&lt;/p&gt;
+
+  &lt;p&gt;If you create or change /etc/nsswitch.conf, you have to restart all Cygwin processes that need to see the change. If the process you want to see the change is a child of another process, you need to restart all of that process’s parents, too.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Sat, 20 Feb 2021 00:00:00 +0900</pubDate>
+        <link>http://takushi1969.github.io/2021/02/20/recoery-from-login-failure-on-cygwin.html</link>
+        <guid isPermaLink="true">http://takushi1969.github.io/2021/02/20/recoery-from-login-failure-on-cygwin.html</guid>
+        
+        <category>cygwin</category>
+        
+        <category>cygserver</category>
+        
+        <category>sshd</category>
+        
+        <category>postgresql</category>
+        
+        <category>apache</category>
+        
+        
+      </item>
     
       <item>
         <title>google-translate.elのtkkエラー</title>
