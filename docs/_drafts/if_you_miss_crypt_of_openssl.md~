@@ -1,0 +1,16 @@
+---
+title: If you miss crypt of openssl-passwd
+---
+日頃、Ubuntuをよく使うが、Jammyからopensslがバージョンアップされて、
+passwd(1ssl)のcryptが非サポートとなった。ちょっとしたパスワードを作成
+する時に重宝していたので不便だ。
+
+そこで、Jammyからopenssl-passwd(1ssl)のcryptを使う方法を検討したが、
+dockerが軽くて良さそう。
+
+cryptが使用できるまでの手順は以下。
+
+1. docker.ioのインストール
+2. docker権限の付与
+3. dockerでのubuntu:focalの起動
+4. 
