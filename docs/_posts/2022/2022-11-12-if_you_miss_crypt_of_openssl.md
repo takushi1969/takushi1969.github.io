@@ -1,5 +1,7 @@
 ---
+layout: post
 title: If you miss crypt of openssl-passwd
+tags: docker openssl
 ---
 日頃、[Ubuntu](https://jp.ubuntu.com/)をよく使うが、
 [Jammy](https://releases.ubuntu.com/22.04/)から

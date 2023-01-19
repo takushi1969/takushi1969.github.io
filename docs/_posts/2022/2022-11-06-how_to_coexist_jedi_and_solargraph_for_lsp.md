@@ -1,5 +1,7 @@
 ---
+layout: post
 title: How to make solargraph avaiable with jedi for emacs lsp
+tags: emacs ruby lsp
 ---
 # 課題 #
 
