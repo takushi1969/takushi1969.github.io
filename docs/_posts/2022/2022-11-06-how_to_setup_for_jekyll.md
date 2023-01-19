@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: post
 title: How to setup Jekyll for github
+tags: github-pages
 ---
 
 [Jekyll](https://jekyllrb.com/)のページには、GitHub Pagesで公開するための簡単な手順が以下のように記載されている。
