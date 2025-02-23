@@ -12,7 +12,7 @@ Ruby/Tkを使用するにあたって、参考となるリンクを以下に示�
     を起動して、コード参照すれば大概のことは理解できる。
 
 	<video autoplay loop width=720px height=406px controls muted>
-		<source src="/assets/images/2025/0223/ruty-tk-widget.webm">
+		<source src="/assets/images/2025/0223/ruby-tk-widget.webm">
 	</video>
 
 - [TkDocs](https://tkdocs.com/index.html)
