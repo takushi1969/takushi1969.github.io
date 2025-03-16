@@ -3,7 +3,7 @@ title: Advanced Markdown Live Preview, which has PlanUML images, on Emacs
 layout: post
 tags: emacs
 ---
-# はじめに
+## はじめに
 
 [Emacs](https://www.gnu.org/software/emacs/)で技術資料の
 [Markdown](https://daringfireball.net/projects/markdown/)を編集してい
@@ -20,7 +20,7 @@ tags: emacs
 [chatu](https://github.com/kimim/chatu)のコンビネーションで、シンプル
 かつ使い勝手の良いPlantUMLのダイアログの挿入手法を提供している。
 
-# 必要パッケージ
+## 必要パッケージ
 
 - [Markdown Mode](https://jblevins.org/projects/markdown-mode/)
 - [chatu](https://github.com/kimim/chatu)
@@ -39,7 +39,7 @@ tags: emacs
 各パッケージの設定については、それぞれのオフィシャル・サイトを確認れた
 い。
 
-# 使用方法
+## 使用方法
 
 以下の全ての操作は、Emacs上で行う。
 
@@ -58,13 +58,13 @@ tags: emacs
     1.のコメント上で、chatu-add関数をコールすることで、chatuがコメント
     の直下にダイアグラムを挿入する。
 
-# 注記
+## 注記
 
 - chatuのplantumlの生成モードはsvgのみをサポート
 
     [pngのサポートのpullreq。](https://github.com/kimim/chatu/pull/5)
 
-# 使用例
+## 使用例
 
 ![Chatu on Emacs](/assets/images/2025/0316/chatu.gif)
 	
